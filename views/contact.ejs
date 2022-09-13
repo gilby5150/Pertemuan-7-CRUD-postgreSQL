@@ -1,0 +1,39 @@
+<div class="jumbotron"  style="padding:40px;">
+  <h1>This is Contact Page</h1>
+  <% if(pesan.length !== 0) {%>
+    <div class="alert alert-success" role="alert"><%= pesan %></div>
+    <% } %>
+  <p>Contact List :</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (data.length === 0) { %>
+        <tr>
+          <td colspan="4"><div class="alert alert-danger fw-bold" role="alert">Data is empty.</div></td>
+        </tr>
+       <% } %> <% data.forEach((conts ,index) => { %>
+        <tr>
+          <th scope="row"><%= index +1 %> </th>
+          <td><%= conts.name%></td>
+          <td><%= conts.email%></td>
+          <td><%= conts.mobile%></td>
+          <td class="d-flex ">
+            <a href="/contact/edit/<%= conts.name%>" class="btn btn-info">Update</a>
+            <form action="/contact/<%= conts.name %>/delete " method="post">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <a href="/contact/add/" class="btn btn-info">Add Contact</a>
+</div>

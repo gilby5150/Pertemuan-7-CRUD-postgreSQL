@@ -1,0 +1,31 @@
+<% if(typeof errors != 'undefined') { %>
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    </div>
+    <% } %>
+<form action="/contact/Update" method="post">
+  <div class="modal-body">
+    <p>Input data here.</p>
+    <input type="hidden" class="form-control" id="floatingInputName" placeholder="Name" name="oldName" value="<%= data.oldName || data.name %>">    
+    <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInputName" placeholder="Name" name="newName" value="<%= data.name %>">
+            <label for="floatingInputName">Name</label>
+          </div>
+          <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com" name="newEmail" value="<%= data.email %>">
+              <label for="floatingInputEmail">Email address</label>
+          </div>
+          <div class="form-floating">
+              <input type="text" class="form-control" id="floatingPassword" placeholder="Mobile" name="newMobile" value="<%= data.mobile %>">
+              <label for="floatingPassword">Mobile</label>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <a href="/contact" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary">Save data</button>
+      </div>
+  </form>  
