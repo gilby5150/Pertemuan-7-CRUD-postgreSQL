@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = 3000
 const expressLayouts = require('express-ejs-layouts');
+// call db
+const pool = require('./db')
+
 // required data json
 const data = './data/contact.json';
 const fs = require("fs");
@@ -12,10 +15,21 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-app.use((req, res, next) => {
-    console.log('Time:', Date.now())
-    next()
-  });
+app.get("/addasync", async(req,res)=>{
+    try {
+        const name = "gilbyF"
+        const mobile = "085775245846"
+        const email = "gilby@gmail.com"
+        const newCont =  await pool.query(`INSERT INTO contacts values
+        ('${name}','${mobile}','${email}') RETURNING *`)
+        res.json(newCont)
+    } catch (err) {
+        console.log(err.message);
+    }
+})
+
+app.use(express.json()) // => req.body
+
 // Konfigurasi flash
 app.use(cookieParser('secret'));
 app.use(
@@ -76,11 +90,16 @@ app.get('/contact/add/',(req,res)=>{
         data: data
     });
 })
-
+// morgan
+// app.use((req, res, next) => {
+//     console.log('Time:', Date.now())
+//     next()
+//   });
+const morgan = require('morgan');
+app.use(morgan('dev'));
 // URL About
 app.get('/about',(req,res)=>{
     res.render('about',{title:"about page",status:"about",navTitle:"About Page"});
-    next();
 })
 const path = require('path')
 app.use('/public', express.static(path.join(__dirname, 'public')))
