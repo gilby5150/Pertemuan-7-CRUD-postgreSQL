@@ -11,6 +11,11 @@ const { body, check, validationResult } = require('express-validator');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+
+app.use((req, res, next) => {
+    console.log('Time:', Date.now())
+    next()
+  });
 // Konfigurasi flash
 app.use(cookieParser('secret'));
 app.use(
@@ -75,7 +80,11 @@ app.get('/contact/add/',(req,res)=>{
 // URL About
 app.get('/about',(req,res)=>{
     res.render('about',{title:"about page",status:"about",navTitle:"About Page"});
+    next();
 })
+const path = require('path')
+app.use('/public', express.static(path.join(__dirname, 'public')))
+
 // URL Product/:id
 app.get('/product/:id',(req,res)=>{
     res.send(`product id: ${req.params.id}<br>kategori: ${req.query.category}`);
