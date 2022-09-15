@@ -1,3 +1,13 @@
 body {
-    background-color: lightblue;
+    background-color: #7ec4cf;
+}
+table{
+    background-color: #d1cfe2;
+   
+}
+thead{
+    background-color: #d4afb9;
+}
+tbody{
+    background-color: #d1cfe2;    
 }
